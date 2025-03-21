@@ -72,20 +72,24 @@ body {
   align-items: center;
   justify-content: center;
   background-size: cover;
+  background-position: center;
   height: 90vh;
-  width: auto;
-  line-height: 1.5;
+  width: 100%;
+  text-align: center;
+  position: relative;
 }
 
 .hero h2, .hero h1, .hero p {
-  text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .hero h2 {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  color:#fff;
-  font-size: 50px;
-  padding-bottom: 400px;
+  font-size: 65px;  /* Increased size */
+  font-weight: bold; /* Make it bold */
+  color: white; /* Ensure contrast */
+  text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9); /* Stronger shadow */
+  margin-bottom: 20px;
 }
 
 .hero h1 {
@@ -139,6 +143,14 @@ body {
   transform: scale(1.1);
   box-shadow: 0 5px 15px rgba(0, 255, 255, 0.5);
 }
+.enroll-button:active {
+  background:  #07a016 !important;
+  color: black !important;
+  border-color: orange !important;
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(255, 165, 0, 0.5);
+}
+
 
 .about, .why-choose, .testimonials, .cta {
   padding: 50px 20px;
@@ -148,3 +160,397 @@ body {
   color: rgb(204, 143, 63);
   font-size: 34px;
 }
+/* Quote Popup Container */
+#quote-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 300px;
+  text-align: center;
+  z-index: 1000;
+  display: none; /* Hidden by default */
+}
+
+/* Close Button */
+#close-quote {
+  background: red;
+  color: white;
+  border: none;
+  font-size: 18px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: 0.3s ease;
+}
+
+#close-quote:hover {
+  background: darkred;
+}
+
+/* Show the popup when active */
+#quote-popup.active {
+  display: block;
+}
+
+/* Overlay Background */
+#quote-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+}
+
+/* Ensure proper hero section responsiveness */
+@media (max-width: 1024px) {
+  .hero h2 {
+    font-size: 40px;
+    padding-bottom: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero h2 {
+    font-size: 30px;
+    padding-bottom: 100px;
+  }
+
+  .hero p {
+    width: 80%;
+  }
+
+  .enroll-button {
+    font-size: 18px;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h2 {
+    font-size: 24px;
+    padding-bottom: 50px;
+  }
+
+  .hero p {
+    width: 90%;
+    font-size: 14px;
+  }
+}
+
+/* Fix header navigation alignment on small screens */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .navbar {
+    flex-direction: column;
+    padding-top: 10px;
+  }
+
+  .navbar li {
+    padding: 10px 0;
+  }
+}
+
+/* Improve button interaction */
+.hero button:focus,
+.enroll-button:focus {
+  outline: none;
+  box-shadow: 0 0 10px cyan;
+}
+
+/* Ensure navbar menu is visible */
+.navbar li a {
+  display: inline-block;
+  padding: 8px 12px;
+}
+
+/* Fix sticky header positioning issue */
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.book-trial-btn {
+  background: linear-gradient(45deg, #ff8000, #ff4d00);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(255, 128, 0, 0.5);
+}
+
+.book-trial-btn:hover {
+  background: linear-gradient(45deg, #ff4d00, #ff8000);
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 77, 0, 0.7);
+}
+
+/* Responsive Button Styling */
+@media (max-width: 768px) {
+  .book-trial-btn {
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+}
+
+/* Default hidden navbar for mobile */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    position: absolute;
+    top: 80px; 
+    left: 0;
+    width: 100%;
+    background-color: black;
+    display: none; /* Initially hidden */
+    padding: 10px 0;
+    z-index: 1000; /* Ensure it appears above other elements */
+  }
+
+  /* When active, navbar should be visible */
+  .navbar.active {
+    display: flex;
+  }
+
+  .navbar li {
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar li a {
+    display: block;
+    padding: 10px;
+    color: rgb(204, 143, 63);
+    font-size: 20px;
+    text-decoration: none;
+  }
+
+  /* Add a hamburger menu button */
+  .menu-toggle {
+    display: block;
+    cursor: pointer;
+    font-size: 24px;
+    color: rgb(204, 143, 63);
+    padding: 10px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: none;
+    border: none;
+    z-index: 1100;
+  }
+}
+/* Add styles for the hamburger menu */
+.menu-toggle {
+  display: none; /* Hidden by default on larger screens */
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Show the hamburger menu on mobile screens */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .navbar {
+    display: none; /* Hide navbar initially */
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar.active {
+    display: flex; /* Show navbar when active */
+  }
+
+  .navbar li {
+    padding: 15px 0;
+  }
+}
+/* Enrollment Guide Section */
+.enroll-guide {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 50px;
+  background-color: black; 
+  color: white; 
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+  width: 80%;
+  margin: 20px auto;
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: red;
+  color: white;
+  border: none;
+  font-size: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: 0.3s ease;
+}
+
+.close-btn:hover {
+  background: darkred;
+  transform: scale(1.1);
+}
+
+/* Enrollment Guide Step Boxes */
+.enroll-step {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 250px;
+  transition: all 0.3s ease-in-out;
+}
+
+.enroll-step:hover {
+  transform: scale(1.05);
+}
+
+.enroll-step h2 {
+  font-size: 20px;
+  color: rgb(204, 143, 63);
+}
+
+.enroll-step p {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Hide Section by Default */
+.hidden {
+  display: none !important;
+}
+
+/* Enroll Button Click Effect */
+.enroll-button.clicked {
+  background: green !important;
+  color: white !important;
+  transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .enroll-guide {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+/* Modal Background */
+#trial-form-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Form Box */
+#trial-form {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  width: 400px;
+  text-align: center;
+  position: relative;
+}
+
+/* Close Button */
+#close-trial-form {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 22px;
+  color: #444;
+}
+
+/* Inputs & Labels */
+#trial-form label {
+  display: block;
+  text-align: left;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+#trial-form input, 
+#trial-form select, 
+#trial-form button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Submit Button */
+#trial-form button {
+  background: linear-gradient(45deg, #ff8000, #ff4d00);
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+#trial-form button:hover {
+  background: #e60073;
+}
+
+/* Error Message Styling */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+  display: none;
+}
+

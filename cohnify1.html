@@ -5,18 +5,133 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Melody - Music Classes</title>
   <link rel="stylesheet" href="melody.css">
+  <style>
+    .hidden {
+      display: none;
+    }
+    .clicked {
+      background-color: #ff4081;
+      color: white;
+    }
+  </style>
+  <style>
+    /* Chatbot button styling */
+    #chatbot-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(45deg, #ff4d00, #ff8000);
+      transform: scale(1.05);
+      color: white;
+      font-size: 30px;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      transition: transform 0.3s ease-in-out;
+    }
+  
+    #chatbot-icon:hover {
+      transform: scale(1.1);
+    }
+  
+    /* Chatbot Container */
+    .chatbot-container {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 350px; /* Default width */
+      height: 450px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      overflow: hidden;
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+  
+    /* Chatbot Header */
+    .chatbot-header {
+      background: linear-gradient(45deg, #ff4d00, #ff8000);
+      transform: scale(1.05);
+      color: white;
+      padding: 12px;
+      text-align: center;
+      font-weight: bold;
+      position: relative;
+      border-radius: 10px 10px 0 0;
+    }
+  
+    /* Close button */
+    .close-btn {
+      position: absolute;
+      right: 10px;
+      top: 5px;
+      background: red;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+  
+    .close-btn:hover {
+      background: darkred;
+    }
+  
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .chatbot-container {
+        width: 90%;
+        right: 5%;
+        bottom: 80px;
+        height: 400px;
+      }
+  
+      #chatbot-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+      }
+    }
+  
+    @media (max-width: 480px) {
+      .chatbot-container {
+        width: 95%;
+        right: 2.5%;
+        bottom: 70px;
+        height: 350px;
+      }
+  
+      #chatbot-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 22px;
+      }
+    }
+  </style>
 </head>
-<body>
-  <section class="header">
+<section class="header">
     <a href="melody.html"><img src="melodylogo.png" class="logo" alt="Melody Logo"></a>
     <h1 class="main">MELODY</h1>
+
+    <!-- Hamburger Menu Button -->
+    <button class="menu-toggle">&#9776;</button>
+
     <div>
       <ul class="navbar">
         <li><a class="active" href="melody.html">HOME</a></li>
-        <li><a href="#" id="login-link">LOGIN</a></li>
+        <li><a href="login.html">LOGIN</a></li>
         <li><a href="courses.html">COURSES</a></li>
         <li><a href="instructors.html">INSTRUCTORS</a></li>
-        <li><a href="events.html">EVENTS</a></li>
+        <li><button class="book-trial-btn">Book a Free Trial</button></li>
         <li><a href="contact.html">CONTACT</a></li>
       </ul>
     </div>
@@ -25,12 +140,54 @@
     <h2>LET'S CREATE MUSIC</h2>
     <h1>Join Our Music Classes!!!</h1>
     <p>"Discover the joy of music! Join our classes and learn to play, sing, and create melodies in an inspiring environment."</p>
-    <button class="enroll-button">ENROLL NOW</button>
+    <button class="enroll-button" id="enroll-btn">ENROLL NOW</button>
   </section>
-  <section class="about">
+  <section class="enroll-guide hidden" id="enroll-guide">
+    <button class="close-btn" id="close-btn">✖</button>
+    
+    <div class="enroll-step">
+        <h2>STEP 1</h2>
+        <p>Book A Free Trial: Select your favorite course and book a free trial class at your convenient time.</p>
+    </div>
+    <div class="enroll-step">
+        <h2>STEP 2</h2>
+        <p>Try before you buy: Get personalized guidance from our Academic Expert in the free trial class.</p>
+    </div>
+    <div class="enroll-step">
+        <h2>STEP 3</h2>
+        <p>Pay and Enroll: Begin your 1:1 live and customized learning sessions with Certified Teachers.</p>
+    </div>
+    <div class="enroll-step">
+        <h2>STEP 4</h2>
+        <p>Learn, Practice and Perform: Get Exclusive Access to Live Masterclasses, Showcases, and Digital Learning Tools.</p>
+    </div>
+  </section>
+</section> 
+<div id="ai-chatbot">
+  <button id="chatbot-icon"  onclick="toggleChatbot()">
+      💬
+  </button>
+   <div class="chatbot-container" id="chatbotContainer">
+    <div class="chatbot-header">
+      Today's-Quote
+      <button class="close-btn" onclick="toggleChatbot()">X</button>
+    </div>
+    <iframe
+	src="https://harsha1845-daily-motivation-quote-generator.hf.space"
+	frameborder="0"
+	width="100%"
+	height="450"
+></iframe>
+
+  </div>
+</div>
+
+ <section class="about">
     <h2>About Melody</h2>
     <p>Melody is an online platform dedicated to helping students master musical instruments, vocal techniques, and music production. We offer beginner to advanced courses for all age groups.</p>
   </section>
+
+
   <section class="why-choose">
     <h2>Why Choose Melody?</h2>
     <ul>
@@ -40,10 +197,59 @@
       <li>Live performances and competitions</li>
     </ul>
   </section>
+
   <section class="cta">
     <h2>Start Your Musical Journey Today!</h2>
     <p>Sign up now and take your musical talent to the next level.</p>
-    <button class="enroll-button">JOIN NOW</button>
+    <button class="enroll-button" id="join-btn">JOIN NOW</button>
   </section>
+<!-- Form Container (Hidden by Default) -->
+<div id="trial-form-container">
+  <div id="trial-form">
+      <span id="close-trial-form">✖</span>
+      <h2>Book a Free Trial</h2>
+
+      <form id="bookingForm">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Enter your name" required>
+
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
+
+          <label for="instrument">Select Instrument</label>
+          <select id="instrument" required>
+              <option value="">--Choose--</option>
+              <option value="piano">Piano</option>
+              <option value="guitar">Guitar</option>
+              <option value="violin">Violin</option>
+              <option value="drums">Drums</option>
+          </select>
+
+          <label for="date">Preferred Date</label>
+          <input type="date" id="date" required>
+
+          <button type="submit">Submit</button>
+
+          <!-- Error Message Area -->
+          <p id="error-message" class="error-message"></p>
+      </form>
+  </div>
+</div>
+
+
+
+
+  <script>
+    function toggleChatbot() {
+      var chatbot = document.getElementById("chatbotContainer");
+      if (chatbot.style.display === "none" || chatbot.style.display === "") {
+        chatbot.style.display = "block";
+      } else {
+        chatbot.style.display = "none";
+      }
+    }
+  </script>
+
+  <script src="melody.js"></script> 
 </body>
 </html>
